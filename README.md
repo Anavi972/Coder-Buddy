@@ -127,6 +127,11 @@ python main.py
 
 ## 📸 Generated Example
 
+![Todo App](Screenshots/todo_app1.png)
+![Todo App](Screenshots/todo_app2.png)
+![Todo App](Screenshots/todo_app3.png)
+
+
 The repository includes a generated Todo Application produced entirely from a natural language prompt using the multi-agent workflow.
 
 ---
