@@ -1,0 +1,248 @@
+/*
+  styles.css – Visual design and responsive layout for the Todo app
+  ---------------------------------------------------------------
+  This stylesheet defines:
+  • A colour palette using CSS custom properties.
+  • A modern gradient background for the page.
+  • Centered #app container with a card‑like appearance.
+  • Styling for the header, input section, todo list items and footer.
+  • Animations for adding/removing items.
+  • Responsive adjustments for screens ≤ 600px.
+  • Filter button styling with an active state.
+*/
+
+/* ------------------------------------------------------------------
+   Colour palette – CSS custom properties (can be overridden in HTML)
+   ------------------------------------------------------------------ */
+:root {
+  /* Primary brand colour */
+  --primary: #4a90e2;
+  /* Secondary colour – used for accents */
+  --secondary: #50e3c2;
+  /* Accent colour – for highlights, buttons etc. */
+  --accent: #f5a623;
+  /* Background colour – used as a fallback for the gradient */
+  --bg: #f0f4f8;
+  /* Text colour */
+  --text: #333333;
+  /* Light colour for disabled / completed items */
+  --muted: #999999;
+}
+
+/* ------------------------------------------------------------------
+   Global page styles
+   ------------------------------------------------------------------ */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background: linear-gradient(135deg, #e0f7fa 0%, #e1f5fe 50%, #e3f2fd 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-attachment: fixed;
+}
+
+/* ------------------------------------------------------------------
+   #app – central container
+   ------------------------------------------------------------------ */
+#app {
+  background: var(--bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 500px;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* ------------------------------------------------------------------
+   Header
+   ------------------------------------------------------------------ */
+header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--primary);
+}
+
+/* ------------------------------------------------------------------
+   Input section – .input-section
+   ------------------------------------------------------------------ */
+.input-section {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.input-section input {
+  flex: 1;
+  font-size: 1.2rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--primary);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.input-section input:focus {
+  border-color: var(--accent);
+}
+/* If a button is added dynamically, style it */
+.input-section button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.input-section button:hover {
+  background: var(--accent);
+}
+
+/* ------------------------------------------------------------------
+   Todo list – .todo-list
+   ------------------------------------------------------------------ */
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.todo-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  transition: background 0.2s ease, transform 0.2s ease;
+  animation: slide-in 0.3s ease forwards;
+}
+.todo-list li:hover {
+  background: var(--secondary);
+  color: #fff;
+}
+.todo-list li.completed {
+  text-decoration: line-through;
+  color: var(--muted);
+  background: #f9f9f9;
+}
+.todo-list li.completed:hover {
+  background: #f0f0f0;
+}
+.todo-list li button {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* ------------------------------------------------------------------
+   Footer – .footer (contains filter buttons and items‑left counter)
+   ------------------------------------------------------------------ */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+/* Filter buttons are inside .filters */
+.footer .filters button {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin: 0 0.2rem;
+  transition: background 0.2s ease;
+}
+.footer .filters button:hover {
+  background: var(--accent);
+}
+.footer .filters button.active {
+  background: var(--secondary);
+}
+/* Items‑left counter */
+.footer .items-left {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+/* ------------------------------------------------------------------
+   Animations – slide‑in for new items, fade‑out for removal
+   ------------------------------------------------------------------ */
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    height: auto;
+    margin-bottom: 0.75rem;
+  }
+  to {
+    opacity: 0;
+    height: 0;
+    margin-bottom: 0;
+  }
+}
+/* The JS can add a class like .removing to trigger fade‑out */
+.todo-list li.removing {
+  animation: fade-out 0.3s ease forwards;
+}
+
+/* ------------------------------------------------------------------
+   Responsive design – max‑width 600px (mobile)
+   ------------------------------------------------------------------ */
+@media (max-width: 600px) {
+  #app {
+    padding: 1.5rem;
+  }
+  header h1 {
+    font-size: 1.5rem;
+  }
+  .input-section input,
+  .input-section button {
+    font-size: 1rem;
+    padding: 0.6rem 0.8rem;
+  }
+  .todo-list li {
+    font-size: 0.95rem;
+    padding: 0.6rem 0.8rem;
+  }
+  .footer .filters button {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.6rem;
+  }
+  .footer .items-left {
+    font-size: 0.8rem;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Utility classes (optional, but helpful for JS toggling)
+   ------------------------------------------------------------------ */
+.hidden {
+  display: none !important;
+}
+
+/* End of styles.css */
