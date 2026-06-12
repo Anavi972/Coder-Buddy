@@ -19,7 +19,7 @@ Coder Buddy is a multi-agent AI code generation system built using LangGraph, Gr
 
 ## 🏗️ Architecture
 
-![Architecture]("Screenshots/Architecture.png")
+![Architecture](Screenshots/Architecture.png)
 
 ### Planner Agent
 
